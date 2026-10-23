@@ -1,0 +1,680 @@
+{
+  "method": "Unedited retailStages at dialogue cues; visible nonzero-scale/alpha actors with integer centers in native 640x400 area. Constants are folded by the editor. Counts include projection approximations; cue counts are not animation samples. Files counted once per distinct layout.",
+  "files": 471,
+  "parsedFiles": 471,
+  "dialogueCues": 4032,
+  "includedCues": 4022,
+  "filesWithProjectionWarnings": 430,
+  "byActorCount": [
+    {
+      "count": 1,
+      "layouts": [
+        {
+          "positions": [
+            {
+              "x": 320,
+              "y": 200
+            }
+          ],
+          "files": 11,
+          "cues": 38,
+          "examples": [
+            "FC_B003.SKP",
+            "FC_C058.SKP",
+            "FC_C103.SKP",
+            "FC_U013.SKP",
+            "FC_W011.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 420,
+              "y": 200
+            }
+          ],
+          "files": 2,
+          "cues": 20,
+          "examples": [
+            "FC_W004.SKP",
+            "FC_W140.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 200
+            }
+          ],
+          "files": 2,
+          "cues": 13,
+          "examples": [
+            "FC_W001.SKP",
+            "FC_W010.SKP"
+          ]
+        }
+      ]
+    },
+    {
+      "count": 2,
+      "layouts": [
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 200
+            },
+            {
+              "x": 420,
+              "y": 200
+            }
+          ],
+          "files": 228,
+          "cues": 2104,
+          "examples": [
+            "FC_B001.SKP",
+            "FC_B002.SKP",
+            "FC_B004.SKP",
+            "FC_B007.SKP",
+            "FC_B008.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 244,
+              "y": 200
+            },
+            {
+              "x": 420,
+              "y": 200
+            }
+          ],
+          "files": 2,
+          "cues": 9,
+          "examples": [
+            "FC_W073.SKP",
+            "FC_W155.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 72,
+              "y": 200
+            },
+            {
+              "x": 420,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 5,
+          "examples": [
+            "FC_B006.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 200
+            },
+            {
+              "x": 399,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 4,
+          "examples": [
+            "FC_C050.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 420,
+              "y": 120
+            },
+            {
+              "x": 420,
+              "y": 300
+            }
+          ],
+          "files": 1,
+          "cues": 4,
+          "examples": [
+            "FC_W096.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 222,
+              "y": 200
+            },
+            {
+              "x": 398,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 2,
+          "examples": [
+            "FC_B005.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 209,
+              "y": 200
+            },
+            {
+              "x": 420,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 2,
+          "examples": [
+            "FC_W063.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 219,
+              "y": 200
+            },
+            {
+              "x": 420,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 2,
+          "examples": [
+            "FC_W063.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 229,
+              "y": 200
+            },
+            {
+              "x": 420,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 2,
+          "examples": [
+            "FC_W063.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 200
+            },
+            {
+              "x": 320,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 2,
+          "examples": [
+            "FC_W112.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 72,
+              "y": 200
+            },
+            {
+              "x": 548,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 1,
+          "examples": [
+            "FC_B005.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 420,
+              "y": 200
+            },
+            {
+              "x": 200,
+              "y": 260
+            }
+          ],
+          "files": 1,
+          "cues": 1,
+          "examples": [
+            "FC_W020.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 239,
+              "y": 200
+            },
+            {
+              "x": 420,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 1,
+          "examples": [
+            "FC_W063.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 130,
+              "y": 200
+            },
+            {
+              "x": 320,
+              "y": 200
+            }
+          ],
+          "files": 1,
+          "cues": 1,
+          "examples": [
+            "FC_W080.SKP"
+          ]
+        }
+      ]
+    },
+    {
+      "count": 3,
+      "layouts": [
+        {
+          "positions": [
+            {
+              "x": 210,
+              "y": 120
+            },
+            {
+              "x": 430,
+              "y": 120
+            },
+            {
+              "x": 320,
+              "y": 300
+            }
+          ],
+          "files": 107,
+          "cues": 938,
+          "examples": [
+            "FC_B009.SKP",
+            "FC_B013.SKP",
+            "FC_B014.SKP",
+            "FC_B016.SKP",
+            "FC_B019.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 120
+            },
+            {
+              "x": 420,
+              "y": 120
+            },
+            {
+              "x": 310,
+              "y": 220
+            }
+          ],
+          "files": 1,
+          "cues": 17,
+          "examples": [
+            "FC_W094.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 210,
+              "y": 120
+            },
+            {
+              "x": 494,
+              "y": 120
+            },
+            {
+              "x": 320,
+              "y": 300
+            }
+          ],
+          "files": 1,
+          "cues": 12,
+          "examples": [
+            "FC_C045.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 420,
+              "y": 120
+            },
+            {
+              "x": 200,
+              "y": 300
+            },
+            {
+              "x": 420,
+              "y": 300
+            }
+          ],
+          "files": 1,
+          "cues": 4,
+          "examples": [
+            "FC_W096.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 420,
+              "y": 120
+            },
+            {
+              "x": 280,
+              "y": 300
+            },
+            {
+              "x": 420,
+              "y": 300
+            }
+          ],
+          "files": 1,
+          "cues": 2,
+          "examples": [
+            "FC_W096.SKP"
+          ]
+        }
+      ]
+    },
+    {
+      "count": 4,
+      "layouts": [
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 120
+            },
+            {
+              "x": 420,
+              "y": 120
+            },
+            {
+              "x": 200,
+              "y": 300
+            },
+            {
+              "x": 420,
+              "y": 300
+            }
+          ],
+          "files": 64,
+          "cues": 649,
+          "examples": [
+            "FC_B000.SKP",
+            "FC_B028.SKP",
+            "FC_B031.SKP",
+            "FC_C005.SKP",
+            "FC_C008.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 120
+            },
+            {
+              "x": 420,
+              "y": 120
+            },
+            {
+              "x": 320,
+              "y": 200
+            },
+            {
+              "x": 200,
+              "y": 300
+            }
+          ],
+          "files": 1,
+          "cues": 3,
+          "examples": [
+            "FC_C036.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 120
+            },
+            {
+              "x": 420,
+              "y": 120
+            },
+            {
+              "x": 250,
+              "y": 300
+            },
+            {
+              "x": 420,
+              "y": 300
+            }
+          ],
+          "files": 1,
+          "cues": 3,
+          "examples": [
+            "FC_W096.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 200,
+              "y": 120
+            },
+            {
+              "x": 420,
+              "y": 120
+            },
+            {
+              "x": 280,
+              "y": 300
+            },
+            {
+              "x": 420,
+              "y": 300
+            }
+          ],
+          "files": 1,
+          "cues": 2,
+          "examples": [
+            "FC_W096.SKP"
+          ]
+        }
+      ]
+    },
+    {
+      "count": 5,
+      "layouts": [
+        {
+          "positions": [
+            {
+              "x": 180,
+              "y": 120
+            },
+            {
+              "x": 440,
+              "y": 120
+            },
+            {
+              "x": 310,
+              "y": 220
+            },
+            {
+              "x": 180,
+              "y": 320
+            },
+            {
+              "x": 440,
+              "y": 320
+            }
+          ],
+          "files": 12,
+          "cues": 141,
+          "examples": [
+            "FC_C030.SKP",
+            "FC_C072.SKP",
+            "FC_C102.SKP",
+            "FC_W022.SKP",
+            "FC_W025.SKP"
+          ]
+        },
+        {
+          "positions": [
+            {
+              "x": 175,
+              "y": 120
+            },
+            {
+              "x": 445,
+              "y": 120
+            },
+            {
+              "x": 310,
+              "y": 220
+            },
+            {
+              "x": 175,
+              "y": 320
+            },
+            {
+              "x": 445,
+              "y": 320
+            }
+          ],
+          "files": 1,
+          "cues": 10,
+          "examples": [
+            "FC_W017.SKP"
+          ]
+        }
+      ]
+    },
+    {
+      "count": 6,
+      "layouts": [
+        {
+          "positions": [
+            {
+              "x": 144,
+              "y": 76
+            },
+            {
+              "x": 484,
+              "y": 76
+            },
+            {
+              "x": 232,
+              "y": 192
+            },
+            {
+              "x": 414,
+              "y": 192
+            },
+            {
+              "x": 144,
+              "y": 307
+            },
+            {
+              "x": 484,
+              "y": 307
+            }
+          ],
+          "files": 2,
+          "cues": 19,
+          "examples": [
+            "FC_W177.SKP",
+            "FC_W211.SKP"
+          ]
+        }
+      ]
+    },
+    {
+      "count": 7,
+      "layouts": [
+        {
+          "positions": [
+            {
+              "x": 174,
+              "y": 76
+            },
+            {
+              "x": 454,
+              "y": 76
+            },
+            {
+              "x": 86,
+              "y": 192
+            },
+            {
+              "x": 316,
+              "y": 192
+            },
+            {
+              "x": 560,
+              "y": 192
+            },
+            {
+              "x": 174,
+              "y": 307
+            },
+            {
+              "x": 454,
+              "y": 307
+            }
+          ],
+          "files": 1,
+          "cues": 11,
+          "examples": [
+            "FC_W048.SKP"
+          ]
+        }
+      ]
+    }
+  ],
+  "failures": []
+}

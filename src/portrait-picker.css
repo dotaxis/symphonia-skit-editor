@@ -1,0 +1,27 @@
+.portrait-picker-backdrop { z-index: 20; }
+.modal.portrait-picker { width: min(950px, 100%); }
+.portrait-picker > p { margin: 6px 0 18px; }
+.portrait-search { display: flex; flex-direction: column; gap: 8px; }
+.portrait-search > span { color: #6c7889; font-size: 11px; }
+.portrait-search input { width: 100%; min-height: 38px; padding: 9px 12px; border: 1px solid var(--line, #d9e1e5); border-radius: 7px; background: #fafbfc; color: #344255; font-size: 12px; }
+.portrait-gallery-status { min-height: 34px; padding: 12px 0 8px; font-size: 10px; color: #7d8999; }
+.portrait-gallery { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+button.portrait-choice { position: relative; display: flex; flex-direction: column; gap: 0; align-items: stretch; padding: 0; overflow: hidden; text-align: left; min-width: 0; background: #f9fbfb; border-color: #dde4e7; }
+button.portrait-choice:hover { border-color: #80bda8; background: #f1f8f4; }
+button.portrait-choice.is-selected { border: 2px solid var(--teal, #267f69); box-shadow: 0 0 0 2px #267f6912; }
+.portrait-thumbnail { display: block; position: relative; aspect-ratio: 4 / 5; background: linear-gradient(145deg, #e8eff0, #f5f7f6); }
+.portrait-thumbnail canvas { display: block; width: 100%; height: 100%; object-fit: contain; }
+.portrait-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: #8da69e; }
+.portrait-placeholder > span { font-size: 30px; font-weight: 400; }
+.portrait-placeholder small { font-size: 9px; font-weight: 400; padding: 0 8px; text-align: center; }
+.portrait-placeholder.has-error { color: #9e8376; }
+.portrait-current { position: absolute; top: 6px; right: 6px; display: grid; place-items: center; border-radius: 50%; width: 22px; height: 22px; background: var(--teal, #267f69); color: #fff; font-size: 12px; }
+.portrait-choice-label { padding: 8px 8px 9px; display: flex; flex-direction: column; gap: 4px; }
+.portrait-choice-label b { font-size: 10px; font-weight: 650; color: #4b5c6d; }
+.portrait-choice-label small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 9px ui-monospace, monospace; color: #8c98a4; }
+.portrait-error { padding: 0 8px 8px; color: #9e6953; font-size: 8px; font-weight: 400; }
+.portrait-gallery-empty { padding: 45px 20px; text-align: center; font-size: 12px; line-height: 1.7; color: #8190a0; border: 1px dashed #dce4e8; border-radius: 7px; }
+.portrait-pagination { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; }
+.portrait-pagination > span { color: #85919f; font-size: 11px; }
+@media (max-width: 760px) { .portrait-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; } }
+@media (max-width: 460px) { .portrait-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } .portrait-picker .modal-heading h2 { font-size: 20px; } .portrait-pagination { gap: 6px; } .portrait-pagination button { font-size: 10px; padding-inline: 8px; } }
