@@ -89,6 +89,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap();
     let edits = Edits {
         messages: vec![MessageEdit {
+            omit_encoded_characters: false,
             index: 0,
             tokens: text(&grown_text),
         }],

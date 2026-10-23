@@ -96,9 +96,9 @@ function edits(value: unknown): SavedEdits {
   const result: SavedEdits = {
     messages: array(parsed.messages, 'Message edits', true).map((value, i) => {
       const where = `Message edit ${i + 1}`, item = object(value, where);
-      fields(item, ['index', 'tokens'], where);
+      fields(item, ['index', 'tokens', 'omitEncodedCharacters'], where);
       const id = index(item.index, `${where}.index`); unique(messageIds, id, 'Message edits');
-      return { index: id, tokens: array(item.tokens, `${where}.tokens`).map((value, j) => token(value, `${where} token ${j + 1}`)) };
+      return { index: id, omitEncodedCharacters: boolean(item.omitEncodedCharacters, `${where}.omitEncodedCharacters`, false), tokens: array(item.tokens, `${where}.tokens`).map((value, j) => token(value, `${where} token ${j + 1}`)) };
     }),
     literals: array(parsed.literals, 'Literal edits', true).map((value, i) => {
       const where = `Literal edit ${i + 1}`, item = object(value, where);

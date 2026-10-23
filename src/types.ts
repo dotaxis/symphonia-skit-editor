@@ -15,7 +15,7 @@ export interface SkitDocument {
   messages: MessageRecord[]; instructions: Instruction[]; diagnostics: Diagnostic[]; codeEditable: boolean;
 }
 export interface EditSet {
-  messages: { index: number; tokens: Token[] }[];
+  messages: { index: number; tokens: Token[]; omitEncodedCharacters?: boolean }[];
   literals: { pc: number; value: number }[];
   insertions?: { beforePc: number; instructions: object[] }[];
   deletions?: { startPc: number; endPc: number }[];

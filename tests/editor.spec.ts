@@ -238,3 +238,36 @@ test('unsupported text and slot names block export with a useful validation mess
   await page.getByRole('button', { name: 'Export SKP' }).click();
   await expect(page.getByRole('alert')).toContainText('existing slot filename');
 });
+
+
+test('encoded character preservation can be toggled, saved, and exported', async ({ page }) => {
+  await page.goto('/');
+  const bytes = await readFile(fixture('FC_W001.SKP'));
+  const offset = bytes.indexOf(Buffer.from('Hello, synthetic skit.'));
+  expect(offset).toBeGreaterThan(0);
+  bytes[offset] = 0x81; bytes[offset + 1] = 0x40;
+  await fileInput(page).setInputFiles({ name: 'FC_W001.SKP', mimeType: 'application/octet-stream', buffer: bytes });
+  const checkbox = page.getByRole('checkbox', { name: 'Preserve original encoded characters' });
+  await expect(checkbox).toBeChecked();
+  await checkbox.uncheck();
+  await expect(page.locator('.control-token')).toHaveCount(0);
+  await page.getByRole('textbox', { name: 'Edited text 2', exact: true }).fill('Corrected text.');
+  const saved = await download(page, 'Save project');
+  await openAuthored(page);
+  await fileInput(page).setInputFiles({ name: saved.name, mimeType: 'application/json', buffer: saved.bytes });
+  await expect(checkbox).not.toBeChecked();
+  const exported = await download(page, 'Export SKP');
+  const result = await core<Document>(page, 'parse_skit', [...exported.bytes]);
+  expect(result.messages[0].text).toBe('Corrected text.');
+  expect(result.messages[0].tokens).toEqual([{ kind: 'text', text: 'Corrected text.' }]);
+  await checkbox.check();
+  await expect(page.locator('.control-token')).toContainText('Original encoded character');
+  const restored = await download(page, 'Export SKP');
+  const restoredDoc = await core<Document>(page, 'parse_skit', [...restored.bytes]);
+  expect(restoredDoc.messages[0].tokens[0]).toMatchObject({ kind: 'protected', hex: '8140' });
+  await page.getByRole('button', { name: 'Script details', exact: true }).click();
+  await page.getByText('Edit all message records', { exact: true }).click();
+  await expect(checkbox).toBeChecked();
+  await checkbox.uncheck();
+  await expect(page.locator('.control-token')).toHaveCount(0);
+});

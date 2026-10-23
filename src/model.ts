@@ -2,10 +2,12 @@ import type { Argument, AuthoredLine, AuthoredProject, DialogueLine, EditSet, In
 
 export const emptyEdits = (): EditSet => ({ messages: [], literals: [] });
 export const visibleText = (tokens: Token[]) => tokens.map(token => token.kind === 'text' ? token.text : `⟦${token.label}⟧`).join('');
+export const isEncodedCharacter = (token: Token) => token.kind === 'protected' && token.label === 'Original encoded character';
 export function effectiveMessages(session: Session): MessageRecord[] {
   return session.document.messages.map(message => {
     const edit = session.edits.messages.find(item => item.index === message.index);
-    return edit ? { ...message, tokens: edit.tokens, text: visibleText(edit.tokens) } : message;
+    const tokens = edit?.omitEncodedCharacters ? edit.tokens.filter(token => !isEncodedCharacter(token)) : edit?.tokens;
+    return tokens ? { ...message, tokens, text: visibleText(tokens) } : message;
   });
 }
 export function effectiveInstructions(session: Session): Instruction[] {
@@ -151,7 +153,7 @@ export function portraits(session: Session): Portrait[] {
   return result;
 }
 export function updateMessage(edits: EditSet, index: number, tokens: Token[]): EditSet {
-  return { ...edits, messages: [...edits.messages.filter(item => item.index !== index), { index, tokens }] };
+  return { ...edits, messages: [...edits.messages.filter(item => item.index !== index), { ...edits.messages.find(item => item.index === index), index, tokens }] };
 }
 export function updateLiteral(edits: EditSet, argument: Argument | undefined, value: number): EditSet {
   if (!argument?.editable || argument.literalPc === undefined) throw new Error('This value is computed by the original script and cannot be edited as a constant.');

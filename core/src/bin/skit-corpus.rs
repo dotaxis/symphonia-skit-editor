@@ -75,6 +75,7 @@ fn run() -> Result<(), String> {
                     &data,
                     &Edits {
                         messages: vec![MessageEdit {
+                            omit_encoded_characters: false,
                             index: message.index,
                             tokens: tokens.clone(),
                         }],

@@ -34,6 +34,12 @@ only need the development server.
 
 ## Editing
 
+Messages with original encoded characters show a **Preserve original encoded
+characters** checkbox. Uncheck it to omit those characters from that message in
+the preview and exported SKP. Control codes stay protected. Rechecking restores
+the characters; the setting is saved with the project and supports undo/redo.
+The same option is available under **Script details → Edit all message records**.
+
 1. Open an extracted `CHT/FC_*.SKP` file, or drop it onto the editor.
 2. Select a dialogue row to edit its English text, speaking character, facial
    frames, or an existing voice milestone. In **Cast & staging**, click a portrait

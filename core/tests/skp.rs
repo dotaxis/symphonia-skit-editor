@@ -49,6 +49,7 @@ fn longer_text_rebuilds_offsets_preserving_code_and_footer() {
         &bytes,
         &Edits {
             messages: vec![MessageEdit {
+                omit_encoded_characters: false,
                 index: 0,
                 tokens: text(&new_text),
             }],
@@ -165,6 +166,7 @@ fn append_messages_keeps_original_ids_and_tail() {
         &bytes,
         &Edits {
             messages: vec![MessageEdit {
+                omit_encoded_characters: false,
                 index: 2,
                 tokens: text("New line."),
             }],
@@ -200,6 +202,7 @@ fn malformed_ranges_and_bad_edits_fail_cleanly() {
         &bytes,
         &Edits {
             messages: vec![MessageEdit {
+                omit_encoded_characters: false,
                 index: 0,
                 tokens: text("bad\0text")
             }],
@@ -211,6 +214,7 @@ fn malformed_ranges_and_bad_edits_fail_cleanly() {
         &bytes,
         &Edits {
             messages: vec![MessageEdit {
+                omit_encoded_characters: false,
                 index: 0,
                 tokens: text("Unencoded é")
             }],
@@ -270,6 +274,7 @@ fn embedded_zeros_and_escape_prefixed_expressions_are_protected() {
             &bytes,
             &Edits {
                 messages: vec![MessageEdit {
+                    omit_encoded_characters: false,
                     index: 0,
                     tokens: tokens.clone(),
                 }],
@@ -284,7 +289,11 @@ fn embedded_zeros_and_escape_prefixed_expressions_are_protected() {
         assert!(compile(
             &bytes,
             &Edits {
-                messages: vec![MessageEdit { index: 0, tokens }],
+                messages: vec![MessageEdit {
+                    omit_encoded_characters: false,
+                    index: 0,
+                    tokens
+                }],
                 ..Default::default()
             }
         )
@@ -335,6 +344,7 @@ fn malformed_escaped_expression_is_readonly_and_preserved() {
         &bytes,
         &Edits {
             messages: vec![MessageEdit {
+                omit_encoded_characters: false,
                 index: 0,
                 tokens: text("replacement")
             }],
@@ -359,7 +369,11 @@ fn text_cannot_change_an_original_encoded_character_boundary() {
     let error = compile(
         &bytes,
         &Edits {
-            messages: vec![MessageEdit { index: 0, tokens }],
+            messages: vec![MessageEdit {
+                omit_encoded_characters: false,
+                index: 0,
+                tokens,
+            }],
             ..Default::default()
         },
     )
@@ -390,6 +404,7 @@ fn unknown_registry_kind_blocks_code_relocation_but_keeps_text_editable() {
         &bytes,
         &Edits {
             messages: vec![MessageEdit {
+                omit_encoded_characters: false,
                 index: 0,
                 tokens: text("Text remains editable")
             }],
@@ -411,6 +426,7 @@ fn unknown_record_suffix_survives_text_growth_exactly() {
         &bytes,
         &Edits {
             messages: vec![MessageEdit {
+                omit_encoded_characters: false,
                 index: 0,
                 tokens: text(&"longer ".repeat(100)),
             }],
@@ -524,4 +540,44 @@ fn reachable_fallthrough_into_message_data_is_rejected() {
         ..Default::default()
     })
     .is_err());
+}
+
+#[test]
+fn encoded_characters_can_be_omitted_without_removing_controls() {
+    let body = b"Hello \x81\x40\x01\x01\x00\x00\x30\xff\x20 world";
+    let mut bytes = create(&CreateSpec {
+        instructions: vec![I::End],
+        messages: vec![text(&"X".repeat(body.len())), text("Unchanged")],
+        ..Default::default()
+    })
+    .unwrap();
+    let offset = inspect(&bytes).unwrap().messages[0].offset;
+    bytes[offset..offset + body.len()].copy_from_slice(body);
+    let original = inspect(&bytes).unwrap();
+    let mut edits = Edits {
+        messages: vec![MessageEdit {
+            index: 0,
+            tokens: original.messages[0].tokens.clone(),
+            omit_encoded_characters: false,
+        }],
+        ..Default::default()
+    };
+    assert_eq!(compile(&bytes, &edits).unwrap(), bytes);
+    edits.messages[0].omit_encoded_characters = true;
+    // User-supplied labels cannot disguise a control as an encoded character.
+    for token in &mut edits.messages[0].tokens {
+        if let Token::Protected { label, .. } = token {
+            *label = "Original encoded character".into();
+        }
+    }
+    let result = inspect(&compile(&bytes, &edits).unwrap()).unwrap();
+    let expected: Vec<_> = original.messages[0].tokens.iter().filter(|token|
+        !matches!(token, Token::Protected { label, .. } if label == "Original encoded character")
+    ).cloned().collect();
+    assert_eq!(result.messages[0].tokens, expected);
+    assert_eq!(result.messages[1].tokens, original.messages[1].tokens);
+    edits.messages[0]
+        .tokens
+        .retain(|token| matches!(token, Token::Text { .. }));
+    assert!(compile(&bytes, &edits).unwrap_err().contains("protected"));
 }

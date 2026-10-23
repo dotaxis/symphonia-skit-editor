@@ -78,6 +78,8 @@ pub struct Edits {
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct MessageEdit {
+    #[serde(default)]
+    pub omit_encoded_characters: bool,
     pub index: usize,
     pub tokens: Vec<Token>,
 }
@@ -469,6 +471,29 @@ fn protected(tokens: &[Token]) -> Vec<&str> {
         })
         .collect()
 }
+// Classify omissions using the parsed original, never caller-supplied token labels.
+// The caller verifies that all original protected bytes are still present in order.
+fn output_tokens(edit: &MessageEdit, original: Option<&Message>) -> Vec<Token> {
+    let mut originals = original
+        .into_iter()
+        .flat_map(|message| message.tokens.iter())
+        .filter(|token| matches!(token, Token::Protected { .. }));
+    edit.tokens
+        .iter()
+        .filter(|token| {
+            if matches!(token, Token::Protected { .. }) {
+                let original = originals.next();
+                !(edit.omit_encoded_characters
+                    && matches!(original,
+                Some(Token::Protected { label, .. }) if label == "Original encoded character"))
+            } else {
+                true
+            }
+        })
+        .cloned()
+        .collect()
+}
+
 fn encode_tokens(tokens: &[Token]) -> Result<Vec<u8>, String> {
     let mut out = Vec::new();
     for token in tokens {
@@ -570,13 +595,14 @@ pub fn compile(data: &[u8], edits: &Edits) -> Result<Vec<u8>, String> {
     } else if parsed.table_recognized {
         let mut changes = BTreeMap::new();
         for edit in &edits.messages {
-            if changes.insert(edit.index, &edit.tokens).is_some() {
+            if changes.insert(edit.index, edit).is_some() {
                 return Err("Duplicate message edit".into());
             }
         }
         let mut records = Vec::new();
         for (index, record) in parsed.records.iter().enumerate() {
-            let mut body = if let Some(tokens) = changes.remove(&index) {
+            let mut body = if let Some(edit) = changes.remove(&index) {
+                let tokens = &edit.tokens;
                 let message = &doc.messages[index];
                 if !message.editable {
                     return Err(format!(
@@ -588,7 +614,7 @@ pub fn compile(data: &[u8], edits: &Edits) -> Result<Vec<u8>, String> {
                         "Message {index}: protected tokens must remain unchanged and in order"
                     ));
                 }
-                let mut body = encode_tokens(tokens)?;
+                let mut body = encode_tokens(&output_tokens(edit, Some(message)))?;
                 body.push(0);
                 body.extend_from_slice(
                     &record.raw[record.terminator.ok_or("Missing structural terminator")? + 1..],
@@ -604,7 +630,8 @@ pub fn compile(data: &[u8], edits: &Edits) -> Result<Vec<u8>, String> {
             }
             records.push(body);
         }
-        for (index, tokens) in changes {
+        for (index, edit) in changes {
+            let tokens = &edit.tokens;
             if index != records.len() {
                 return Err(
                     "New message IDs must append consecutively after existing messages".into(),
@@ -659,7 +686,8 @@ pub fn compile(data: &[u8], edits: &Edits) -> Result<Vec<u8>, String> {
             })
             .collect();
         if !message.editable
-            || protected(&message.tokens) != protected(&edit.tokens)
+            || protected(&message.tokens)
+                != protected(&output_tokens(edit, doc.messages.get(edit.index)))
             || message.text != expected_text
         {
             return Err(format!(
