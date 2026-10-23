@@ -281,13 +281,13 @@ portraits. It can be served from a GitHub Pages repository subpath without a
 backend or the rest of this workspace.
 
 `.github/workflows/skit-editor.yml` builds, tests, and uploads the static site as an
-artifact. To publish, configure Pages to use GitHub Actions and manually run the
-skit editor workflow with **deploy** enabled. It follows GitHub's
+artifact. Configure Pages to use GitHub Actions. Pushes to `main` automatically
+publish after the build and tests pass. Other branch pushes and pull requests
+run checks without publishing. You can also manually run the skit editor workflow
+with **deploy** enabled. It follows GitHub's
 [custom Pages workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 Local builds do not publish anything.
 
-For a standalone repository, move the workflow into its root `.github/workflows/`,
-remove the `skit-editor/` path prefixes, and set its working directory to `.`.
 Keep local voice banks, projects, and private exports out of the repository.
 
 ## Core interfaces
